@@ -3,5 +3,30 @@
   "version": "1.0.0",
   "dependencies": {
     "axios": "^1.9.0"
-  }
+  },
+  "description": "A MagicMirror²-Module displaying information Bitcoin miner Gamma 601",
+  "main": "MMM-Gamma601.js",
+  "author": "ASteinsdoerfer",
+  "license": "MIT",
+  "keywords": [
+    "magicmirror",
+    "Bitcoin",
+    "miner",
+    "smartmirror",
+    "modul",
+    "open-source",
+	"finance"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ASteinsdoerfer/MMM-Gamma601.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ASteinsdoerfer/MMM-Gamma601/issues"
+  },
+  "images": {
+  "screenshot": "https://github.com/ASteinsdoerfer/MMM-Gamma601/raw/main/screenshot.png",
+ }
+  "homepage": "https://github.com/ASteinsdoerfer/MMM-Gamma601"
 }
+
