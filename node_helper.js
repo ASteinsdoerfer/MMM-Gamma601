@@ -30,6 +30,8 @@ this.sendSocketNotification("GAMMA_DATA", {
     hashrate10m: d.hashRate_10m,
     hashrate1h: d.hashRate_1h,
 
+	Jackpot: d.blockFound,
+
     expectedHashrate: d.expectedHashrate,
 
     temp: d.temp,
