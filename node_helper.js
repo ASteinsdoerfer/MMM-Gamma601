@@ -43,6 +43,44 @@ async function getNetworkDifficulty() {
     }
 }
 
+async function getInterval() {
+    try {
+        const response = await axios.get(
+            "https://blockchain.info/q/interval"
+        );
+		response.data = response.data / 60;	
+		
+        return response.data;
+
+    } catch (error) {
+        console.error(
+            "Fehler beim Abrufen der Zeit zwischen 2 Blöcken",
+            error.message
+        );
+
+        return null;
+    }
+}
+
+async function getBTCoverall() {
+    try {
+        const response = await axios.get(
+            "https://blockchain.info/q/totalbc"
+        );
+		
+		response.data = response.data/ 100000000;
+				
+        return response.data;
+
+    } catch (error) {
+        console.error(
+            "Fehler beim Abrufen der absoluten BTC",
+            error.message
+        );
+
+        return null;
+    }
+}
 
 
 module.exports = NodeHelper.create({
@@ -66,7 +104,6 @@ module.exports = NodeHelper.create({
             const d = response.data;
 
 
-
             // Netzwerk-Difficulty abrufen
             const networkDifficulty = await getNetworkDifficulty();
 
@@ -80,25 +117,27 @@ module.exports = NodeHelper.create({
                     : "N/A";
 
 
-			const bestDiffRatioFormatted =  formatDifficulty(networkDifficulty / d.bestDiff);
+					
+			let bestDiffRatio = null;
+			let bestDiffRatioFormatted = "N/A";
+
+			const bestDiff = Number(d.bestDiff);
+			const netDiff = Number(networkDifficulty);
+
+			if (Number.isFinite(bestDiff) && Number.isFinite(netDiff) && bestDiff > 0 && netDiff > 0) 
+				{			
+				bestDiffRatio =  netDiff / bestDiff;
+				bestDiffRatioFormatted = formatDifficulty(bestDiffRatio);
+				}
+
+
+			//Wie groß ist die Blockintervallzeit
+            const NextBlockInterval= await getInterval();
+			
+			//wieviele BTC sind im Umlauf
+			const BTCoverall = await getBTCoverall();
 			
 			
-let bestDiffRatio = null;
-
-const bestDiff = Number(d.bestDiff);
-const netDiff = Number(networkDifficulty);
-
-if (
-    Number.isFinite(bestDiff) &&
-    Number.isFinite(netDiff) &&
-    netDiff > 0
-) {
-    bestDiffRatio =  netDiff / bestDiff;
-}
-
-
-//neu ende
-
 
 this.sendSocketNotification("GAMMA_DATA", {
 
@@ -134,12 +173,14 @@ this.sendSocketNotification("GAMMA_DATA", {
 
     bestDiff: d.bestDiff,
 	
- // Neue Werte
+ 
     bestDiffFormatted: bestDiffFormatted,
     networkDifficulty: networkDifficulty,
     networkDifficultyFormatted: networkDifficultyFormatted,
     bestDiffRatio: bestDiffRatio,
-	bestDiffRatioFormatted: bestDiffRatioFormatted
+	bestDiffRatioFormatted: bestDiffRatioFormatted,
+	NextBlockInterval: NextBlockInterval,
+	BTCoverall : BTCoverall
 	
 	
 
