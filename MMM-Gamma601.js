@@ -50,18 +50,19 @@ Module.register("MMM-Gamma601", {
 
 	// Best Difficulty	
     const bestDiff = this.dataMiner.bestDiffFormatted;
+	
 
     // Netzwerk Difficulty
-    const networkDifficulty = this.dataMiner.networkDifficultyFormatted;
+    //const networkDifficulty = this.dataMiner.networkDifficultyFormatted;
 
     // Verhältnis
-	const bestDiffRatio = this.dataMiner.bestDiffRatioFormatted;
+	//const bestDiffRatio = this.dataMiner.bestDiffRatioFormatted;
 
 
-	const NextBlockInterval = this.dataMiner.NextBlockInterval;
+	//const NextBlockInterval = this.dataMiner.NextBlockInterval;
 	
 	const BTCoverall = this.dataMiner.BTCoverall;
-
+/*
 
         wrapper.innerHTML = `
             
@@ -75,6 +76,19 @@ Module.register("MMM-Gamma601", {
             <i class="fa-solid fa-power-off"></i> Uptime ${uptimeText} ${sekunden} Sekunden<br>		
 			
 		`;
+*/
+        wrapper.innerHTML = `
+            
+			Status ${this.dataMiner.online ? "<i class='fa-solid fa-wifi'></i>" :"<i class='fa-solid fa-bell'></i>"}   <i class="fa-solid fa-trophy"></i> already mined: ${this.dataMiner.Jackpot}<br>
+			<i class="fa-brands fa-btc"></i> Hashrate ${(this.dataMiner.hashrate /1000).toFixed(2)} Th/s   <i class="fa-solid fa-bug"></i> ${this.dataMiner.errorPercentage.toFixed(2)} % <br>
+			<i class="fa-solid fa-puzzle-piece"></i> Best Difficulty ${bestDiff} <br>
+			<i class="fa-solid fa-share-nodes"></i> Shares: ${this.dataMiner.shares} <i class="fa-solid fa-xmark"></i> Rejected ${this.dataMiner.rejected} <i class="fa-solid fa-caret-right"></i> ${((this.dataMiner.rejected/this.dataMiner.shares)*100).toFixed(2)} %<br> 
+			<i class="fa-solid fa-network-wired"></i><i class="fa-brands fa-btc"></i> ${Number(BTCoverall).toLocaleString("de-DE")}    <i class="fa-solid fa-file-fragment"></i> ${((BTCoverall/21000000)*100).toFixed(2)}%<br>
+			<i class="fa-solid fa-temperature-high"></i> Temperatur ${this.dataMiner.temp.toFixed(1)} °C <i class="fa-solid fa-bolt"></i> Power ${this.dataMiner.power.toFixed(1)} W<br>
+            <i class="fa-solid fa-power-off"></i> Uptime ${uptimeText} ${sekunden} Sekunden<br>		
+			
+		`;
+		
         return wrapper;
     }
 });

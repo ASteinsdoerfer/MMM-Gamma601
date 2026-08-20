@@ -24,7 +24,7 @@ function formatDifficulty(value) {
     return `${value.toFixed(2)} ${units[unitIndex]}`;
 }
 
-
+/*
 async function getNetworkDifficulty() {
     try {
         const response = await axios.get(
@@ -61,7 +61,7 @@ async function getInterval() {
         return null;
     }
 }
-
+*/
 async function getBTCoverall() {
     try {
         const response = await axios.get(
@@ -102,14 +102,16 @@ module.exports = NodeHelper.create({
             );
 
             const d = response.data;
-
+/*
 
             // Netzwerk-Difficulty abrufen
             const networkDifficulty = await getNetworkDifficulty();
 
+*/
+
             // Best Difficulty formatieren
             const bestDiffFormatted = formatDifficulty(d.bestDiff);
-
+/*
             // Netzwerk-Difficulty formatieren
             const networkDifficultyFormatted =
                 networkDifficulty !== null
@@ -132,8 +134,9 @@ module.exports = NodeHelper.create({
 
 
 			//Wie groß ist die Blockintervallzeit
-            const NextBlockInterval= await getInterval();
-			
+            //const NextBlockInterval= await getInterval();
+			const NextBlockInterval = null;
+*/			
 			//wieviele BTC sind im Umlauf
 			const BTCoverall = await getBTCoverall();
 			
@@ -173,8 +176,10 @@ this.sendSocketNotification("GAMMA_DATA", {
 
     bestDiff: d.bestDiff,
 	
- 
+
     bestDiffFormatted: bestDiffFormatted,
+	BTCoverall : BTCoverall
+/*
     networkDifficulty: networkDifficulty,
     networkDifficultyFormatted: networkDifficultyFormatted,
     bestDiffRatio: bestDiffRatio,
@@ -182,7 +187,7 @@ this.sendSocketNotification("GAMMA_DATA", {
 	NextBlockInterval: NextBlockInterval,
 	BTCoverall : BTCoverall
 	
-	
+*/	
 
 });
         }catch(e){
